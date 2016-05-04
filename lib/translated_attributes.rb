@@ -118,11 +118,13 @@ module TranslatedAttributes
       #translations.delete_all
       @translated_attributes.each do |locale, attributes|
         attributes.each do |attribute, value|
-          if _translation = translations.where(translated_attributes_options[:attribute_column] => attribute, :language => locale).first && _translation.text.to_s != value.to_s
-            _translation.delete
-            next if value.blank?
-            next unless self.class.translated_attributes_options[:fields].include? attribute.to_sym
-            translations.create!(translated_attributes_options[:attribute_column] => attribute, :text => value, :language => locale)
+          if _translation = translations.where(translated_attributes_options[:attribute_column] => attribute, :language => locale).first
+            if _translation.text.to_s != value.to_s
+              _translation.delete
+              next if value.blank?
+              next unless self.class.translated_attributes_options[:fields].include? attribute.to_sym
+              translations.create!(translated_attributes_options[:attribute_column] => attribute, :text => value, :language => locale)
+            end
           end
         end
       end
