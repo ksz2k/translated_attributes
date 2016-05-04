@@ -118,7 +118,7 @@ module TranslatedAttributes
       @translated_attributes.each do |locale, attributes|
         attributes.each do |attribute, value|
           if _translation = translations.where(translated_attributes_options[:attribute_column] => attribute, :language => locale).first
-            _translation.update(:text => value) if _translation.text.to_s != value.to_s
+            _translation.update_attributes(:text => value) if _translation.text.to_s != value.to_s
           else
             next if value.blank?
             next unless self.class.translated_attributes_options[:fields].include? attribute.to_sym
