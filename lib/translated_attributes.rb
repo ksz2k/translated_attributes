@@ -20,7 +20,11 @@ module TranslatedAttributes
       rescue
         klass = Class.new(ActiveRecord::Base)
         Object.const_set(class_name, klass)
-        klass.set_table_name table_name
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('4.1')
+          klass.table_name = table_name
+        else
+          klass.set_table_name table_name
+        end
         klass.belongs_to associated, :polymorphic => true
       end
 
