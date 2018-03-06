@@ -39,13 +39,10 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activerecord>, [">= 3.2"])
-      #s.add_runtime_dependency(%q<activerecord>, [">= 3.2"])
     else
-      s.add_dependency(%q<activerecord>, [">= 0"])
       s.add_dependency(%q<activerecord>, [">= 0"])
     end
   else
-    s.add_dependency(%q<activerecord>, [">= 0"])
     s.add_dependency(%q<activerecord>, [">= 0"])
   end
 end
